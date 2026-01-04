@@ -1,5 +1,6 @@
 #pragma once //tells the compliere to include a header file once in a single coimpliation 
 //person class
+// comment from laptop
 #include <iostream>
 #include <vector>
 using namespace std;
