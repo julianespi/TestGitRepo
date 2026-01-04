@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void startUp(vector<person>* partcipants);
+void startUp(vector<person> &partcipants);
 
 int main()
 {
@@ -32,11 +32,12 @@ int main()
     {
     case 1:
     {
-        startUp(&partcipants);
+        startUp(partcipants);
     }
     case 2:
     {
-
+        int x = 4;
+        int *xPtr = &x;
     }
     case 3:
     {
@@ -62,15 +63,44 @@ int main()
 
     //cout << option;
 }
+//this would be passing by pointer and then have to be dereferenced 
+//void startUp(vector<person> *partcipants)
 
-void startUp(vector<person>* partcipants) // I should pass this in by refrence so that it does not make a copy
+
+//this is passing by reference this allows for direct editing of the original variable without needing to dereference
+void startUp(vector<person> &partcipants) 
 {
-    int numberOfParticipants = inputNumber("select  a number of particpants ");
+    int numberOfParticipants = inputNumber("select  a number of particpants: ");
 
-    for (int i = 0; i < numberOfParticipants; i++)
+    partcipants.resize(numberOfParticipants);
+
+	//Gets names of participants
+	cout << "Enter the participants names: " << endl;
+
+    for(int i = 0; i < numberOfParticipants; i++)
     {
-        //partci
+        partcipants[i].setName(intputString("name: "));
     }
+
+	//gets the excluded names for each participant
+    for(int i = 0; i < numberOfParticipants; i++)
+    {   
+		bool pickAnother = false;
+        cout << "for " << partcipants[i].getName() << " who can they not get: " << endl;
+        do 
+        {   
+            int i = 0;
+            
+            partcipants[i].setExludedName(intputString("Name: "));
+            pickAnother = inputBool("Would you like to enter another person: ");
+
+            i++;
+        }while (pickAnother);
+
+
+
+	}
+
 }
 
 

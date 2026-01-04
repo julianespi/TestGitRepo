@@ -45,7 +45,7 @@ int inputNumber(string prompt)
 	int input;
 	do // does once then checks if statment is still true
 	{
-		cout << prompt << endl;
+		cout << prompt ;
 
 		if (!(cin >> input)) // checks for 
 		{
@@ -64,6 +64,52 @@ int inputNumber(string prompt)
 
 	} while (badInput);
 
+
+	return input;
+}
+
+string intputString(string prompt)
+{
+	bool badInput = true;
+	string input;
+	do // does once then checks if statment is still true
+	{
+		cout << prompt;
+		if (!(cin >> input)) // checks for 
+		{
+			cout << "error: invlid input" << endl;
+		}
+		else
+		{
+			badInput = false;
+		}
+	} while (badInput);
+
+	return input;
+}
+
+bool inputBool(string prompt)
+{
+	char input;
+	bool badInput = true;
+	cout << prompt;
+	do
+	{
+		cout << "Enter T(true) or F(false): ";
+		if (!(cin >> input))
+		{
+			cout << "error: invalid input" << endl;
+		}
+		else if (toupper(input) == 'F' || toupper(input) == 'T')
+		{
+			badInput = false;
+		}
+		else
+		{
+			cout << "CHARACTER ERROR: invalid character" << endl;
+		}
+
+	} while (badInput);
 
 	return input;
 }

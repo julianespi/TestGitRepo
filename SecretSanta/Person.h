@@ -49,6 +49,11 @@ public: // allows for the setting and getting of the private variables and const
 		}
 	}
 
+	void setExludedName(string newName)
+	{
+		excludedNames.push_back(newName);
+	}
+
 	void setWants(vector<string> newWants)
 	{
 		for (int i = 0; i < newWants.size(); i++)
