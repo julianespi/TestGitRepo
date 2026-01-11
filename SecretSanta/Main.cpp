@@ -36,8 +36,7 @@ int main()
     }
     case 2:
     {
-        int x = 4;
-        int *xPtr = &x;
+
     }
     case 3:
     {
@@ -70,7 +69,7 @@ int main()
 //this is passing by reference this allows for direct editing of the original variable without needing to dereference
 void startUp(vector<person> &partcipants) 
 {
-    int numberOfParticipants = inputNumber("select  a number of particpants: ");
+    int numberOfParticipants = inputNumber("select  a number of particpants: "); // i get a loop if i dont enter a number
 
     partcipants.resize(numberOfParticipants);
 
@@ -86,16 +85,42 @@ void startUp(vector<person> &partcipants)
     for(int i = 0; i < numberOfParticipants; i++)
     {   
 		bool pickAnother = false;
-        cout << "for " << partcipants[i].getName() << " who can they not get: " << endl;
-        do 
-        {   
-            int i = 0;
-            
-            partcipants[i].setExludedName(intputString("Name: "));
-            pickAnother = inputBool("Would you like to enter another person: ");
+        bool firstTime = false;
+        // displays the current individual and ask if it is there first time
+        cout << "for " << partcipants[i].getName() << " is it there first time: " ;
+        if (firstTime = inputBool())// gets the firstTime boolean answer
+        {
+            vector<person> availableExcludedPersons;
+            do
+            {
 
-            i++;
-        }while (pickAnother);
+                cout << "would like to pick a person that you would not want to get" << endl;
+                if (inputBool)
+                {
+                    for (int j = 0; j < numberOfParticipants; j++)// this loops copies all but the currnet user
+                    {
+                        if (j != i)
+                        {
+                            availableExcludedPersons.push_back(partcipants[j]);
+                        }
+                        
+                    }
+
+                    for (int j = 0;j < availableExcludedPersons.size(); j++) // this loops displays the persons that we would could exlude
+                    {
+                        cout << "\t[" << j + 1 << "] " << availableExcludedPersons[j].getName() << endl;
+                    }
+                    cout << "\t[" << availableExcludedPersons.size() + 1 << "] None" << endl; // provides the skip option
+                    
+                    //need to add a part where the user pick a person from the avaluiable exluded person and 
+                    //then adds that to the exluded names in there class
+
+                    cout << "would you like to pick another person to excluded: ";
+                    pickAnother = inputBool();
+
+                }
+            } while (pickAnother);
+        }
 
 
 

@@ -15,6 +15,8 @@ int inputNumberRange(int lowerRange, int upperRange)
 		if (!(cin >> input)) // checks for 
 		{
 			cout << "error: invlid input" << endl;
+			cin.clear();
+			cin.ignore(999, '\n');
 		}
 		else if (isalpha(input)) // check if it is a letter
 		{
@@ -50,6 +52,8 @@ int inputNumber(string prompt)
 		if (!(cin >> input)) // checks for 
 		{
 			cout << "error: invlid input" << endl;
+			cin.clear();
+			cin.ignore(999, '\n');
 		}
 		else if (isalpha(input)) // check if it is a letter
 		{
@@ -88,28 +92,37 @@ string intputString(string prompt)
 	return input;
 }
 
-bool inputBool(string prompt)
+bool inputBool()
 {
 	char input;
 	bool badInput = true;
-	cout << prompt;
 	do
 	{
-		cout << "Enter T(true) or F(false): ";
 		if (!(cin >> input))
 		{
-			cout << "error: invalid input" << endl;
+			cout << "ERROR: Invalid input" << endl;
+			cin.clear();
+			cin.ignore(999, '\n');
 		}
-		else if (toupper(input) == 'F' || toupper(input) == 'T')
+		else if (toupper(input) == 'Y')
 		{
-			badInput = false;
+			cin.clear();
+			cin.ignore(999, '\n');
+			return true;
+		}
+		else if (toupper(input) == 'N')
+		{
+			cin.clear();
+			cin.ignore(999, '\n');
+			return false;
 		}
 		else
 		{
-			cout << "CHARACTER ERROR: invalid character" << endl;
+			cin.clear();
+			cin.ignore(999, '\n');
+			cout << "CHARACTER ERROR: Enter Y (Yes) or N (No): " ;
 		}
+		
 
 	} while (badInput);
-
-	return input;
 }
