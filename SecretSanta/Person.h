@@ -78,10 +78,29 @@ public: // allows for the setting and getting of the private variables and const
 		return wants[i];
 	}
 
+	int getExludedNameSize()
+	{
+		return excludedNames.size();
+	}
+
+	void getExludedNames()
+	{
+		for (int e = 0; e < excludedNames.size(); e++)
+		{
+			cout << "\t" << excludedNames[e] << endl;
+		}
+		cout << endl;
+	}
+
 	//functions
 	void addExludedName(string name)
 	{
 		excludedNames.push_back(name);
+	}
+
+	void removeExuidedName(int i)
+	{
+		excludedNames.erase(excludedNames.begin() + i);
 	}
 };
 
