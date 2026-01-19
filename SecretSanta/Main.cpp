@@ -9,8 +9,9 @@
 using namespace std;
 
 void startUp(vector<person> &partcipants);
+void excludingAPerson(vector<person>& availableExcludedPersons, vector<person>& partcipants, int i);
 void excludingPersons(vector<person>& availableExcludedPersons, vector<person>& partcipants, int i);
-void disaplayPersonAsChoices(vector<person> availableExcludedPersons);
+void disaplayPersonAsChoices(vector<person> availableExcludedPersons, string optionWord);
 
 int main()
 {
@@ -110,68 +111,78 @@ void startUp(vector<person> &partcipants)
         else // this is for people particpating again this year.
         {
             //ask the person who they got last year
-            //then ask them if they want to exlude anyone for this year
             cout << "Who did you get last year: " << endl;
-            disaplayPersonAsChoices(availableExcludedPersons);
+            disaplayPersonAsChoices(availableExcludedPersons,"No one");
+            excludingAPerson(availableExcludedPersons, partcipants, i);
 
-            //for here we need to make a function that only exludes 1 person 
-            //so in excludingPersons function we break it down so that the main
-            //part of the choosing who to inlude is its own function and excludingPersons
-            //just calls it in a for loop
-
-
+            excludingPersons(availableExcludedPersons, partcipants, i);
 
         }
-
-
-
 	}
-
+    cout << "everyone was entered and everyone picked who they wanted to not get " << endl;
 }
 
+void excludingAPerson(vector<person>& availableExcludedPersons, vector<person>& partcipants, int i)
+{
+    int exlucedIndex = inputNumberRange(1, availableExcludedPersons.size() + 1);
+
+    if (exlucedIndex == (availableExcludedPersons.size() + 1)) //exit option
+    {
+        if (partcipants[i].getExludedNameSize() == 0)
+        {
+            cout << "You picked to exlude no one" << endl << endl;
+            return;
+        }
+        else
+        {
+            cout << partcipants[i].getName() << " picked to exlude the following: " << endl;
+            partcipants[i].getExludedNames();
+        }
+    }
+    else
+    {
+        cout << partcipants[i].getName() <<" picked to exlude " << availableExcludedPersons[exlucedIndex - 1].getName() << " from your pick pool" << endl << endl;
+        partcipants[i].setExludedName(availableExcludedPersons[exlucedIndex - 1].getName());
+        availableExcludedPersons.erase(availableExcludedPersons.begin() + (exlucedIndex - 1));
+    }
+}
 
 void excludingPersons(vector<person> &availableExcludedPersons, vector<person> &partcipants, int i)
 {
+    cout << "would like to pick a person that you would not want to get: "; //first propmpting of asking the user if they want to exclude someone
+    bool choice = inputBool();
+    int tempSize = 0;
     do
     {
-        cout << "would like to pick a person that you would not want to get" << endl;
-        if (inputBool)
+        if (choice)
         {
-            disaplayPersonAsChoices(availableExcludedPersons);
-            cout << "\t[" << availableExcludedPersons.size() + 1 << "] Done" << endl; // provides the skip option
+            disaplayPersonAsChoices(availableExcludedPersons, "Done");
+            tempSize = availableExcludedPersons.size(); // get the current size of the excluded names
 
-            int exlucedIndex = inputNumberRange(1, availableExcludedPersons.size() + 1);
-
-            if (exlucedIndex == (availableExcludedPersons.size() + 1)) //exit option
+            excludingAPerson(availableExcludedPersons, partcipants, i); // run process to see if the user wants to exluded others
+            
+            if (tempSize == availableExcludedPersons.size()) // checks if the temp size is the same
             {
-                if (partcipants[i].getExludedNameSize() == 0)
-                {
-                    cout << "You picked to exlude no one" << endl << endl;
-                    break;
-                }
-                else
-                {
-                    cout << "You picked to exlude the following: " << endl;
-                    partcipants[i].getExludedNames();
-                }
+                return;
             }
             else
             {
-                cout << "You picked to exlude " << availableExcludedPersons[exlucedIndex - 1].getName() << " from your pick pool" << endl << endl;
-                partcipants[i].setExludedName(availableExcludedPersons[exlucedIndex - 1].getName());
-                availableExcludedPersons.erase(availableExcludedPersons.begin() + (exlucedIndex - 1));
+                //if not the same size indicats a change then ask to see if they would like to exluded another person
+                cout << "would you like to pick another person to excluded: "; //second prompt to exlude someone
+                choice = inputBool();
             }
-
-            cout << "would you like to pick another person to excluded: ";
         }
-    } while (inputBool());
+    } while (choice);
 }
 
-void disaplayPersonAsChoices(vector<person> availableExcludedPersons)
+void disaplayPersonAsChoices(vector<person> availableExcludedPersons,string optionWord)
 {
     for (int j = 0;j < availableExcludedPersons.size(); j++) // this loops displays the persons that we would could exlude
     {
         cout << "\t[" << j + 1 << "] " << availableExcludedPersons[j].getName() << endl;
     }
+    cout << "\t[" << availableExcludedPersons.size() + 1 << "] "<< optionWord << endl;
 }
+
+
 
