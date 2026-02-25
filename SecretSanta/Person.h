@@ -102,6 +102,38 @@ public: // allows for the setting and getting of the private variables and const
 	{
 		excludedNames.erase(excludedNames.begin() + i);
 	}
+
+	void displayPerson()
+	{
+		cout << "Participant: " << name << endl;
+
+		if (excludedNames.size() == 0)
+		{
+			cout << "\tNo excluded persons" << endl;
+		}
+		else
+		{
+			cout << "\tExluded Persons: " << endl;
+			for (int i = 0; i < excludedNames.size(); i++)
+			{
+				cout << "\t\t" << excludedNames[i] << endl;
+			}
+		}
+
+		if (wants.size() == 0)
+		{
+			cout << "\tNo wants" << endl;
+		}
+		else
+		{
+			cout << "\tWish List: " << endl;
+			for (int i = 0; i < wants.size(); i++)
+			{
+				cout << "\t\t" << wants[i] << endl;
+			}
+		}
+		cout << endl;
+	}
 };
 
 
